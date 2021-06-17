@@ -10,7 +10,7 @@ const RightSide = (props) => {
         <FeedList>
           <li>
             <a>
-              <Avator />
+              <Avatar />
             </a>
             <div>
               <span>#Linkedin</span>
@@ -20,7 +20,7 @@ const RightSide = (props) => {
 
           <li>
             <a>
-              <Avator />
+              <Avatar />
             </a>
             <div>
               <span>#Video</span>
@@ -28,18 +28,28 @@ const RightSide = (props) => {
             </div>
           </li>
         </FeedList>
+        <Recommendation>
+          View all recomendations
+          <img src="/images/right-icon.svg" alt="" />
+        </Recommendation>
       </FollowCard>
+      <BannerCard>
+        <img
+          src="https://static-exp1.licdn.com/scds/common/u/images/promo/ads/li_evergreen_jobs_ad_300x250_v1.jpg"
+          alt="Banner Pic"
+        />
+      </BannerCard>
     </Container>
   );
 };
 const Container = styled.div`
-  grid-area: RightSide;
+  grid-area: rightside;
 `;
 
 const FollowCard = styled.div`
   text-align: center;
   overflow: hidden;
-  margin-bottom: 80px;
+  margin-bottom: 8px;
   background-color: #fff;
   border-radius: 5px;
   position: relative;
@@ -88,8 +98,26 @@ const FeedList = styled.ul`
   }
 `;
 
-const Avator = styled.div`
-background-image:url()
+const Avatar = styled.div`
+  background-image: url("https://static-exp1.licdn.com/sc/h/1b4vl1r54ijmrmcyxzoidwmxs");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 48px;
+  height: 48px;
+  margin-right: 8px;
 `;
 
+const Recommendation = styled.a`
+  color: #0a66c2;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+`;
+const BannerCard = styled(FollowCard)`
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
 export default RightSide;
