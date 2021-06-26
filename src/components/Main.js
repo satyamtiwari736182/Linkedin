@@ -80,6 +80,7 @@ const Main = (props) => {
           </SocialActions>
         </Article>
       </div>
+      
     </Container>
   );
 };
@@ -260,7 +261,8 @@ const SocialActions = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
-  margin-left: -40%;
+  margin: 0;
+
   min-height: 4px;
   padding: 4px 8px;
   button {

@@ -75,6 +75,7 @@ const Header = (props) => {
         </Nav>
       </Content>
     </Container>
+    
   );
 };
 
@@ -246,3 +247,5 @@ const Work = styled(User)`
 `;
 
 export default Header;
+
+
