@@ -2,6 +2,10 @@ import styled from "styled-components";
 import React from "react";
 import ReactPlayer from "react-player";
 import { useState } from "react";
+import { connect } from "react-redux";
+import firebase from "firebase";
+import { postArticleAPI } from "../actions";
+
 const PostModal = (props) => {
   const [editorText, setEditorText] = useState("");
   const [shareImage, setShareImage] = useState("");
@@ -21,6 +25,22 @@ const PostModal = (props) => {
     setShareImage("");
     setVideoLink("");
     setAssetArea(area);
+  };
+
+  const postArticle = (e) => {
+    e.preventDefault();
+    if (e.target !== e.currentTarget) return;
+
+    const payload = {
+      image: shareImage,
+      video: videoLink,
+      user: props.user,
+      description: editorText,
+      timestamp: firebase.firestore.Timestamp.now(),
+    };
+
+    props.postArticle(payload);
+    reset(e);
   };
 
   const reset = (e) => {
@@ -47,8 +67,12 @@ const PostModal = (props) => {
             </Header>
             <SharedContent>
               <UserInfo>
-                <img src="/images/user.svg" alt="" />
-                <span>Name</span>
+                {props.user.photoURL ? (
+                  <img src={props.user.photoURL} alt="" />
+                ) : (
+                  <img src="/images/user.svg" alt="" />
+                )}
+                <span>{props.user.displayName}</span>
               </UserInfo>
               <Editor>
                 <textarea
@@ -109,7 +133,10 @@ const PostModal = (props) => {
                 </AssetsButton>
               </ShareComment>
 
-              <PostButton disabled={!editorText ? true : false}>
+              <PostButton
+                disabled={!editorText ? true : false}
+                onClick={(event) => postArticle(event)}
+              >
                 Post
               </PostButton>
             </ShareCreation>
@@ -273,4 +300,14 @@ const UploadImage = styled.div`
   }
 `;
 
-export default PostModal;
+const mapStateToProps = (state) => {
+  return {
+    user: state.userState.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  postArticle: (payload) => dispatch(postArticleAPI(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostModal);
